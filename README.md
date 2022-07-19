@@ -12,9 +12,8 @@ Web UI automation tests for site https://www.saucedemo.com with Allure reporting
 
 ### Prerequisites
 - Python 3.7+
-- [Chromedriver](https://chromedriver.chromium.org/) - if you want to run tests with Chrome.
-- [Geckodriver](https://github.com/mozilla/geckodriver) - if you want to run tests with  Firefox.
-- [Allure](https://docs.qameta.io/allure/#_installing_a_commandline) - if you want to generate reports locally.
+- [Chromedriver](https://chromedriver.chromium.org/) - if you want to run tests with Chrome or [Geckodriver](https://github.com/mozilla/geckodriver) - if you want to run tests with Firefox
+- [Allure](https://docs.qameta.io/allure/#_installing_a_commandline)
 
 ### Installation
 1. Clone the repo - `git clone https://github.com/nzhernovkov/pytest_allure_test_project.git`
