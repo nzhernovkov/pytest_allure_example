@@ -1,0 +1,6 @@
+.vscode/
+.idea/
+documents/
+resources/
+venv/
+.pytest_cache/

@@ -1,1 +1,1 @@
-# pytest_allure_example
+# pytest_allure_test_project
