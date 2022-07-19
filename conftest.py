@@ -1,16 +1,17 @@
 import allure
 import pytest
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from allure_commons.types import AttachmentType
 
+from .setting import PAGE_LOAD_TIMEOUT
+
 
 def pytest_addoption(parser):
     parser.addoption('--browser_name', action='store', default='chrome',
                      help="Choose browser: chrome or firefox")
-    parser.addoption('--language', action='store', default='en',
-                     help="Choose browser language")
 
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
@@ -24,24 +25,21 @@ def pytest_runtest_makereport(item):
 @pytest.fixture
 def driver(request):
     browser_name = request.config.getoption("browser_name")
-    language = request.config.getoption("language")
     if browser_name == "chrome":
         options = ChromeOptions()
         options.add_argument("--headless")
         options.add_argument("window-size=1920x1080")
-        options.add_experimental_option('prefs', {'intl.accept_languages': language})
         driver = webdriver.Chrome(options=options)
         print("\nstart chrome browser for test..")
-        driver.set_page_load_timeout(30)
+        driver.set_page_load_timeout(PAGE_LOAD_TIMEOUT)
         driver.maximize_window()
     elif browser_name == "firefox":
         options = FirefoxOptions()
         options.add_argument("--headless")
         options.add_argument("window-size=1920x1080")
-        options.set_preference("intl.accept_languages", language)
         driver = webdriver.Firefox(options=options)
         print("\nstart firefox browser for test..")
-        driver.set_page_load_timeout(30)
+        driver.set_page_load_timeout(PAGE_LOAD_TIMEOUT)
         driver.maximize_window()
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")

@@ -17,7 +17,7 @@ class LoginPage(BasePage):
 
     @allure.step('Check that the login form present on the page')
     def should_be_login_form(self):
-        assert self.is_element_present(*LoginPageLocators.LOGIN_FORM), "Login form is not presented"
+        assert self.is_element_present(*LoginPageLocators.LOGIN_FORM), "Login form is not present"
 
     @allure.step('Login with username - {1} and password - {2}')
     def login(self, username, password):

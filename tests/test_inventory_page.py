@@ -3,6 +3,7 @@ import pytest
 
 from ..pages.login_page import LoginPage
 from ..pages.inventory_page import InventoryPage
+from ..pages.cart_page import CartPage
 from ..setting import USERNAME, PASSWORD, BASE_URL
 
 inventory_link = BASE_URL + '/inventory.html'
@@ -19,26 +20,43 @@ class TestInventoryPage:
         login_page.login(USERNAME, PASSWORD)
         login_page.should_be_authorized_user()
 
-    @allure.title('Open the inventory page')
+    @allure.title('User can open the inventory page')
     def test_user_can_open_inventory_page(self, browser):
         inventory_page = InventoryPage(browser)
         inventory_page.open(inventory_link)
         inventory_page.should_be_inventory_page()
 
-    @allure.title('Add the product to cart')
-    def test_user_can_see_count_of_items_in_cart(self, browser):
+    @allure.title('User can see count of added products on the cart icon')
+    def test_user_can_see_count_of_products_on_cart_icon(self, browser):
         inventory_page = InventoryPage(browser)
         inventory_page.open(inventory_link)
-        inventory_page.click_button_with_text('Add to cart')
+        inventory_page.click_add_to_cart_button()
         inventory_page.should_be_items_count_on_cart_icon()
 
-    @allure.title('Sort products by "{option_text}"')
+    @allure.title('User can remove added products from the cart')
+    def test_user_can_remove_products_from_cart(self, browser):
+        inventory_page = InventoryPage(browser)
+        inventory_page.open(inventory_link)
+        inventory_page.click_add_to_cart_button()
+        inventory_page.should_be_remove_button()
+        inventory_page.click_remove_button()
+        inventory_page.should_not_be_remove_button()
+
+    @allure.title('User can go to the cart page from the inventory page by clicking on the cart icon')
+    def test_user_can_go_to_cart_from_inventory(self, browser):
+        inventory_page = InventoryPage(browser)
+        inventory_page.open(inventory_link)
+        inventory_page.click_cart_link()
+        cart_page = CartPage(browser)
+        cart_page.should_be_cart_page()
+
+    @allure.title('User can sort products by "{option_text}" with filter')
     @pytest.mark.parametrize('option_text', [
         'Name (A to Z)',
         'Name (Z to A)',
         'Price (low to high)',
         'Price (high to low)'])
-    def test_user_can_sort_products(self, browser, option_text):
+    def test_user_can_sort_products_with_filter(self, browser, option_text):
         inventory_page = InventoryPage(browser)
         inventory_page.open(inventory_link)
         inventory_page.select_products_sorting_option_by_text(option_text)
