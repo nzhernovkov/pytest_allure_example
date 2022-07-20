@@ -2,7 +2,7 @@ import allure
 import pytest
 
 from ..pages.login_page import LoginPage
-from ..setting import USERNAME, PASSWORD, BASE_URL
+from ..resources.environment import BASE_URL, USERNAME, PASSWORD
 
 
 @allure.suite('Login page tests')

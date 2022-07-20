@@ -4,10 +4,7 @@ import pytest
 from ..pages.login_page import LoginPage
 from ..pages.inventory_page import InventoryPage
 from ..pages.cart_page import CartPage
-from ..setting import USERNAME, PASSWORD, BASE_URL
-
-cart_link = BASE_URL + '/cart.html'
-inventory_link = BASE_URL + '/inventory.html'
+from ..resources.environment import BASE_URL, CART_URL, INVENTORY_URL, USERNAME, PASSWORD
 
 
 @allure.suite('Cart page tests')
@@ -25,24 +22,24 @@ class TestCartPage:
     @pytest.fixture
     def add_product_to_cart(self, browser):
         inventory_page = InventoryPage(browser)
-        inventory_page.open(inventory_link)
+        inventory_page.open(INVENTORY_URL)
         inventory_page.click_add_to_cart_button()
 
     @allure.title('User can open the cart page')
     def test_user_can_open_cart_page(self, browser):
         cart_page = CartPage(browser)
-        cart_page.open(cart_link)
+        cart_page.open(CART_URL)
         cart_page.should_be_cart_page()
 
     @allure.title('User can see added product in the cart')
     def test_user_can_see_product_in_cart(self, browser, add_product_to_cart):
         cart_page = CartPage(browser)
-        cart_page.open(cart_link)
+        cart_page.open(CART_URL)
         cart_page.should_be_item_in_cart()
 
     @allure.title('User can remove added product from the cart')
     def test_user_can_remove_product_from_cart(self, browser, add_product_to_cart):
         cart_page = CartPage(browser)
-        cart_page.open(cart_link)
+        cart_page.open(CART_URL)
         cart_page.click_remove_button()
         cart_page.should_not_be_item_in_cart()

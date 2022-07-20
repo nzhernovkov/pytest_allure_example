@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from allure_commons.types import AttachmentType
 
-from .setting import PAGE_LOAD_TIMEOUT
+from .resources.selenium_configs import PAGE_LOAD_TIMEOUT
 
 
 def pytest_addoption(parser):
