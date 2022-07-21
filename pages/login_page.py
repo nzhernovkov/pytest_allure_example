@@ -2,9 +2,13 @@ import allure
 
 from .base_page import BasePage
 from .locators import LoginPageLocators
+from ..resources.environment import LOGIN_URL
 
 
 class LoginPage(BasePage):
+    @allure.step('Open the Login page by url {url}')
+    def open_this_page(self, url=LOGIN_URL):
+        self.browser.get(url)
 
     @allure.step('Check that the current page is the login page')
     def should_be_login_page(self):

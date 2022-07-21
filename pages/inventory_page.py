@@ -5,9 +5,13 @@ import allure
 from selenium.webdriver.support.ui import Select
 from .base_page import BasePage
 from .locators import InventoryPageLocators
+from ..resources.environment import INVENTORY_URL
 
 
 class InventoryPage(BasePage):
+    @allure.step('Open the Inventory page by url {url}')
+    def open_this_page(self, url=INVENTORY_URL):
+        self.browser.get(url)
 
     @allure.step('Check that the current page is the inventory page')
     def should_be_inventory_page(self):

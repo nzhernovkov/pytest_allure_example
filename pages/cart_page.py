@@ -2,9 +2,13 @@ import allure
 
 from .base_page import BasePage
 from .locators import CartPageLocators
+from ..resources.environment import CART_URL
 
 
 class CartPage(BasePage):
+    @allure.step('Open the "Cart" page by url {url}')
+    def open_this_page(self, url=CART_URL):
+        self.browser.get(url)
 
     @allure.step('Check that the current page is the cart page')
     def should_be_cart_page(self):

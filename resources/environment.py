@@ -1,5 +1,6 @@
 # links
 BASE_URL = 'https://www.saucedemo.com'
+LOGIN_URL = 'https://www.saucedemo.com'
 CART_URL = 'https://www.saucedemo.com/cart.html'
 INVENTORY_URL = 'https://www.saucedemo.com/inventory.html'
 
