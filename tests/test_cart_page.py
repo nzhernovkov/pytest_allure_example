@@ -20,10 +20,11 @@ class TestCartPage:
 
     @allure.title('Add product to the cart before the actual test')
     @pytest.fixture
-    def add_product_to_cart(self, browser):
+    def added_product(self, browser):
         inventory_page = InventoryPage(browser)
         inventory_page.open(INVENTORY_URL)
-        inventory_page.click_add_to_cart_button()
+        name, price = inventory_page.click_add_to_cart_button_of_random_product_and_get_its_name_and_price()
+        return name, price
 
     @allure.title('User can open the cart page')
     def test_user_can_open_cart_page(self, browser):
@@ -32,14 +33,14 @@ class TestCartPage:
         cart_page.should_be_cart_page()
 
     @allure.title('User can see added product in the cart')
-    def test_user_can_see_product_in_cart(self, browser, add_product_to_cart):
+    def test_user_can_see_product_in_cart(self, browser, added_product):
         cart_page = CartPage(browser)
         cart_page.open(CART_URL)
-        cart_page.should_be_item_in_cart()
+        cart_page.should_be_added_item_in_cart(*added_product)
 
     @allure.title('User can remove added product from the cart')
-    def test_user_can_remove_product_from_cart(self, browser, add_product_to_cart):
+    def test_user_can_remove_product_from_cart(self, browser, added_product):
         cart_page = CartPage(browser)
         cart_page.open(CART_URL)
         cart_page.click_remove_button()
-        cart_page.should_not_be_item_in_cart()
+        cart_page.should_not_be_items_in_cart()

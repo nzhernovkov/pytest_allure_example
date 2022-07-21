@@ -1,3 +1,5 @@
+import random
+
 import allure
 
 from selenium.webdriver.support.ui import Select
@@ -45,8 +47,8 @@ class InventoryPage(BasePage):
         select = Select(self.browser.find_element(*InventoryPageLocators.SORT_SELECTOR))
         select.select_by_visible_text(option_text)
 
-    @allure.step('Click on the cart link')
-    def click_cart_link(self):
+    @allure.step('Click on the cart icon')
+    def click_cart_icon(self):
         link = self.browser.find_element(*InventoryPageLocators.CART_ICON)
         link.click()
 
@@ -54,6 +56,16 @@ class InventoryPage(BasePage):
     def click_add_to_cart_button(self):
         button = self.browser.find_element(*InventoryPageLocators.ADD_TO_CART_BUTTON)
         button.click()
+
+    @allure.step('Click on the "Add to Cart" button of a random product and get its name and price.')
+    def click_add_to_cart_button_of_random_product_and_get_its_name_and_price(self):
+        items = self.browser.find_elements(*InventoryPageLocators.ITEM_CONTAINER)
+        random_item = items[random.randrange(0, len(items))]
+        button = random_item.find_element(*InventoryPageLocators.ADD_TO_CART_BUTTON)
+        button.click()
+        name = random_item.find_element(*InventoryPageLocators.ITEM_NAME).text
+        price = random_item.find_element(*InventoryPageLocators.ITEM_PRICE).text
+        return name, price
 
     @allure.step('Click on the "Remove" button')
     def click_remove_button(self):

@@ -44,7 +44,7 @@ class TestInventoryPage:
     def test_user_can_go_to_cart_from_inventory(self, browser):
         inventory_page = InventoryPage(browser)
         inventory_page.open(INVENTORY_URL)
-        inventory_page.click_cart_link()
+        inventory_page.click_cart_icon()
         cart_page = CartPage(browser)
         cart_page.should_be_cart_page()
 

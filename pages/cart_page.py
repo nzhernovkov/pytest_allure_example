@@ -27,12 +27,25 @@ class CartPage(BasePage):
         assert self.is_element_present(*CartPageLocators.CONTINUE_SHOPPING_BUTTON), \
             "Continue Shopping button is not present"
 
-    @allure.step('Check that an item present in the cart')
-    def should_be_item_in_cart(self):
-        assert self.is_element_present(*CartPageLocators.CART_ITEM), "Item is not present in the cart"
+    @allure.step('Check that added item present in the cart')
+    def should_be_added_item_in_cart(self, name, price):
+        self.should_match_product_name(name)
+        self.should_match_product_price(price)
+
+    @allure.step('Check that the name of added product in the cart matches its name in the inventory')
+    def should_match_product_name(self, inventory_name):
+        name = self.browser.find_element(*CartPageLocators.ITEM_NAME).text
+        assert name == inventory_name, \
+            f"Cart product name '{inventory_name}' not match inventory product name '{name}"
+
+    @allure.step('Check that the price of added product in the cart matches its price in the inventory')
+    def should_match_product_price(self, inventory_price):
+        price = self.browser.find_element(*CartPageLocators.ITEM_PRICE).text
+        assert price == inventory_price, \
+            f"Cart product price '{inventory_price}' not match inventory product price '{price}'"
 
     @allure.step('Check that an item not present in the cart')
-    def should_not_be_item_in_cart(self):
+    def should_not_be_items_in_cart(self):
         assert self.is_not_element_present(*CartPageLocators.CART_ITEM), "Item is present in the cart"
 
     @allure.step('Click on the "Remove" button')
