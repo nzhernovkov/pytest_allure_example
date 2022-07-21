@@ -17,6 +17,7 @@ class BasePage:
     @allure.step('Open the link "{url}"')
     def open(self, url):
         self.browser.get(url)
+        return self
 
     @allure.step('Click on the button with text "{text}"')
     def click_button_with_text(self, text):
@@ -24,6 +25,7 @@ class BasePage:
         formatted_locator = (locator[0], locator[1].format(text))
         button = self.browser.find_element(*formatted_locator)
         button.click()
+        return self
 
     @allure.step('Check that the text "{text}" is displayed on the page')
     def is_text_visible(self, text):
@@ -35,6 +37,12 @@ class BasePage:
         except TimeoutException:
             return False
         return True
+
+    @allure.step('Check that the user is authorized')
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.LOGOUT_LINK), "Logout link is not present," \
+                                                                       " probably unauthorised user"
+        return self
 
     @allure.step('Check that the element found by "{how}" with the selector "{what}" is present on the page')
     def is_element_present(self, how, what):
@@ -55,11 +63,6 @@ class BasePage:
         except TimeoutException:
             return True
         return False
-
-    @allure.step('Check that the user is authorized')
-    def should_be_authorized_user(self):
-        assert self.is_element_present(*BasePageLocators.LOGOUT_LINK), "Logout link is not present," \
-                                                                       " probably unauthorised user"
 
 
 def xpath_prepare(search_text):

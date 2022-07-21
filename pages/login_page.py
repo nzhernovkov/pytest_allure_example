@@ -9,19 +9,23 @@ class LoginPage(BasePage):
     @allure.step('Open the Login page by url {url}')
     def open_this_page(self, url=LOGIN_URL):
         self.browser.get(url)
+        return self
 
     @allure.step('Check that the current page is the login page')
     def should_be_login_page(self):
         self.should_be_login_form()
+        return self
 
     @allure.step('Check that the user see the login error message')
     def should_see_login_error_message(self):
         assert self.is_text_visible("Epic sadface: Username and password do not match any user in this service"), \
             "Login error message is not present"
+        return self
 
     @allure.step('Check that the login form present on the page')
     def should_be_login_form(self):
         assert self.is_element_present(*LoginPageLocators.LOGIN_FORM), "Login form is not present"
+        return self
 
     @allure.step('Login with username - {1} and password - {2}')
     def login(self, username, password):
@@ -31,3 +35,4 @@ class LoginPage(BasePage):
         password_input.send_keys(password)
         login_button = self.browser.find_element(*LoginPageLocators.LOGIN_BUTTON)
         login_button.click()
+        return self
