@@ -47,7 +47,7 @@ class InventoryPage(BasePage):
             "Count of items not present on the cart icon"
         return self
 
-    @allure.step('Check that active sorting option is "{option_text}"')
+    @allure.step('Check that active sorting option is {option_text}')
     def should_be_specific_active_sorting_option(self, option_text):
         active_option_text = self.browser.find_element(*InventoryPageLocators.ACTIVE_SORT_OPTION).text
         assert active_option_text.lower() == option_text.lower(), \

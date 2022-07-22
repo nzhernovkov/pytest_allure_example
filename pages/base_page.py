@@ -14,12 +14,12 @@ class BasePage:
         self.browser = browser
         self.browser.implicitly_wait(IMPLICITLY_TIMEOUT)
 
-    @allure.step('Open the link "{url}"')
+    @allure.step('Open the link {url}')
     def open(self, url):
         self.browser.get(url)
         return self
 
-    @allure.step('Click on the button with text "{text}"')
+    @allure.step('Click on the button with text {text}')
     def click_button_with_text(self, text):
         locator = BasePageLocators.BUTTON_WITH_TEXT
         formatted_locator = (locator[0], locator[1].format(text))
@@ -27,7 +27,7 @@ class BasePage:
         button.click()
         return self
 
-    @allure.step('Check that the text "{text}" is displayed on the page')
+    @allure.step('Check that the text {text} is displayed on the page')
     def is_text_visible(self, text):
         xpath_string = xpath_prepare(text)
         try:
@@ -44,7 +44,7 @@ class BasePage:
                                                                        " probably unauthorised user"
         return self
 
-    @allure.step('Check that the element found by "{how}" with the selector "{what}" is present on the page')
+    @allure.step('Check that the element found by {how} with the selector {what} is present on the page')
     def is_element_present(self, how, what):
         try:
             WebDriverWait(self.browser, WAIT_FOR_TIMEOUT).until(
@@ -54,7 +54,7 @@ class BasePage:
             return False
         return True
 
-    @allure.step('Check that the element found by "{how}" with the selector "{what}" is not present on the page')
+    @allure.step('Check that the element found by {how} with the selector {what} is not present on the page')
     def is_not_element_present(self, how, what):
         try:
             WebDriverWait(self.browser, WAIT_FOR_TIMEOUT).until(

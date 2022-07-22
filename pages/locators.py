@@ -6,10 +6,6 @@ class BasePageLocators:
     BUTTON_WITH_TEXT = (By.XPATH, "//button[contains(text(), '{:s}')]")
 
 
-class MainPageLocators:
-    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
-
-
 class LoginPageLocators:
     LOGIN_FORM = (By.CSS_SELECTOR, '.login-box')
     LOGIN_BUTTON = (By.CSS_SELECTOR, '#login-button')
