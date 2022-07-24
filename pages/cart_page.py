@@ -1,8 +1,8 @@
 import allure
 
+from resources.environment import CART_URL
 from .base_page import BasePage
 from .locators import CartPageLocators
-from ..resources.environment import CART_URL
 
 
 class CartPage(BasePage):

@@ -1,11 +1,11 @@
 import random
-
 import allure
 
 from selenium.webdriver.support.ui import Select
+
+from resources.environment import INVENTORY_URL
 from .base_page import BasePage
 from .locators import InventoryPageLocators
-from ..resources.environment import INVENTORY_URL
 
 
 class InventoryPage(BasePage):

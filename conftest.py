@@ -2,12 +2,14 @@ import allure
 import pytest
 
 from selenium import webdriver
-from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from allure_commons.types import AttachmentType
 
-from .resources.selenium_configs import PAGE_LOAD_TIMEOUT
+from resources.selenium_configs import PAGE_LOAD_TIMEOUT
+from pages.login_page import LoginPage
+from pages.inventory_page import InventoryPage
+from pages.cart_page import CartPage
 
 
 def pytest_addoption(parser):
@@ -36,7 +38,6 @@ def driver(request):
         chrome_options = ChromeOptions()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("window-size=1920x1080")
-        chrome_options.add_argument("browserName")
         if selenium_host:
             driver = webdriver.Remote(
                 command_executor=f'http://{selenium_host}:{selenium_port}/wd/hub',
@@ -80,3 +81,21 @@ def browser(request, driver):
         )
     print("\nquit browser..")
     driver.quit()
+
+
+@pytest.fixture(scope="function")
+def login_page(browser):
+    page = LoginPage(browser)
+    return page
+
+
+@pytest.fixture(scope="function")
+def inventory_page(browser):
+    page = InventoryPage(browser)
+    return page
+
+
+@pytest.fixture(scope="function")
+def cart_page(browser):
+    page = CartPage(browser)
+    return page

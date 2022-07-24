@@ -1,8 +1,8 @@
 import allure
 
+from resources.environment import LOGIN_URL
 from .base_page import BasePage
 from .locators import LoginPageLocators
-from ..resources.environment import LOGIN_URL
 
 
 class LoginPage(BasePage):

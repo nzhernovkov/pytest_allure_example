@@ -5,8 +5,8 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from resources.selenium_configs import IMPLICITLY_TIMEOUT, WAIT_FOR_TIMEOUT
 from .locators import BasePageLocators
-from ..resources.selenium_configs import IMPLICITLY_TIMEOUT, WAIT_FOR_TIMEOUT
 
 
 class BasePage:
